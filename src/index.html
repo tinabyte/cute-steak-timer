@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+
+  <body>
+    <div class="app-title">Steak Timer :3</div>
+    <div class="window-controls">
+      <button class="control-btn minimize-btn" id="minimizeBtn">
+        <img src="./assets/Minimize-button.png" alt="Minimize" />
+      </button>
+      <button class="control-btn close-btn" id="closeBtn">
+        <img src="./assets/Close-button.png" alt="Close" />
+      </button>
+    </div>
+    <div class="main-content">
+      <h1 class="main-text">Let's Cook Some Meat!</h1>
+      <p class="sub-text">( for a 1" steak )</p>
+      <button class="start-button">Start</button>
+    </div>
+    <!-- <h1>Meaty Timer!</h1> -->
+    <script>
+      document.getElementById('closeBtn').addEventListener('click', () => {
+        if (window.electronAPI) {
+          window.electronAPI.closeWindow();
+        }
+      });
+
+      document.getElementById('minimizeBtn').addEventListener('click', () => {
+        if (window.electronAPI) {
+          window.electronAPI.minimizeWindow();
+        }
+      });
+    </script>
+  </body>
+</html>

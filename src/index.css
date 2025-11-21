@@ -1,0 +1,158 @@
+@font-face {
+  font-family: 'VCR OSD Mono';
+  src: url('./assets/VCR_OSD_MONO_1.001.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Bold';
+  src: url('./assets/Montserrat-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-image: url('./assets/App_Background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  position: relative;
+}
+
+.app-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 12px;
+  font-family: 'VCR OSD Mono', monospace;
+  font-size: 20px;
+  font-weight: normal;
+  color: #615147;
+  letter-spacing: 1px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.window-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+}
+
+.control-btn img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.control-btn:hover {
+  opacity: 0.8;
+}
+
+.control-btn:active {
+  opacity: 0.6;
+}
+
+.main-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 100;
+}
+
+.main-text {
+  font-family: 'Montserrat Bold', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #615147;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.sub-text {
+  font-family: 'Montserrat Bold', sans-serif;
+  font-size: 15px;
+  transform: translate(-0%, -40%);
+  font-weight: bold;
+  color: #7c6d64;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.start-button {
+  font-family: 'VCR OSD Mono', monospace;
+  font-size: 15px;
+  font-weight: normal;
+  color: hsl(26, 47%, 88%);
+  background: #d05649;
+  border: 3px solid #b1382d;
+  border-radius: 5px;
+  padding: 5px 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  transition: all 0.1s;
+}
+
+.start-button:hover {
+  background: #e74c3c;
+  border-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.start-button:active {
+  transform: scale(0.98);
+  background: #a93226;
+}
+
+:root {
+  color: orange;
+}
+

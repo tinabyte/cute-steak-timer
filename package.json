@@ -1,15 +1,23 @@
 {
   "name": "steak-timer-electron",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently -k \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "electronmon .",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^39.2.1"
+    "concurrently": "^9.2.1",
+    "electron": "^39.2.1",
+    "electronmon": "^2.0.4"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.1"
   }
 }
