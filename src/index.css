@@ -91,7 +91,7 @@ body {
   opacity: 0.6;
 }
 
-.main-content {
+.home-content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -103,7 +103,7 @@ body {
   z-index: 100;
 }
 
-.main-text {
+.home-text {
   font-family: 'Montserrat Bold', sans-serif;
   font-size: 25px;
   font-weight: bold;
@@ -139,6 +139,8 @@ body {
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   transition: all 0.1s;
+  margin: 0 auto;
+  display: block;
 }
 
 .start-button:hover {
@@ -154,5 +156,44 @@ body {
 
 :root {
   color: orange;
+}
+
+
+
+
+.steak-btn img{
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+
+}
+
+ .steak-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  width: auto;
+  height: auto;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.steak-btn:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+}
+
+.steak-btn:active {
+  transform: scale(1.05);
+  opacity: 0.6;
 }
 

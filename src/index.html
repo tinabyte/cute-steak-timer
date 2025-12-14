@@ -14,13 +14,37 @@
         <img src="./assets/Close-button.png" alt="Close" />
       </button>
     </div>
-    <div class="main-content">
-      <h1 class="main-text">Let's Cook Some Meat!</h1>
+
+
+    <div class="home-content" id="home-content" style="display: block;">
+      <h1 class="home-text">Let's Cook Some Meat!</h1>
       <p class="sub-text">( for a 1" steak )</p>
-      <button class="start-button">Start</button>
+      <button class="start-button" id="startBtn">Start</button>
     </div>
-    <!-- <h1>Meaty Timer!</h1> -->
+    
+    
+    <div class="steak-rarity-view" id="steakRarity" style="display: none;">
+      <h1 class="cooking-text">hello</h1>
+      <button class="steak-btn" id="rareSteakBtn">
+        <img src="./assets/rare.png" alt="Minimize" />
+      </button>
+      
+      <button class="steak-btn" id="mediumRareSteakBtn">
+        <img src="./assets/medium-rare.png" alt="Minimize" />
+      </button>
+
+      <button class="steak-btn" id="mediumSteakBtn">
+        <img src="./assets/medium.png" alt="Minimize" />
+      </button>
+
+      <button class="steak-btn" id="rareSteakBtn">
+        <img src="./assets/well-done.png" alt="Minimize" />
+      </button>
+    </div>
+    
+    
     <script>
+      // commands for when button is pushed.
       document.getElementById('closeBtn').addEventListener('click', () => {
         if (window.electronAPI) {
           window.electronAPI.closeWindow();
@@ -31,6 +55,11 @@
         if (window.electronAPI) {
           window.electronAPI.minimizeWindow();
         }
+      });
+
+      document.getElementById('startBtn').addEventListener('click', () => {
+        document.getElementById('home-content').style.display = 'none';
+        document.getElementById('steakRarity').style.display = 'block';
       });
     </script>
   </body>
