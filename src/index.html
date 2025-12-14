@@ -23,7 +23,7 @@
     </div>
     
     
-    <div class="steak-rarity-view" id="steakRarity" style="display: block;">
+    <div class="steak-rarity-view" id="steakRarity" style="display: none;">
       <h1 class="sub-text">How do you want your steak cooked today?</h1>
       <div class="steak-grid-container">
         <button class="steak-btn" id="rareSteakBtn">
@@ -48,6 +48,13 @@
       </div>
     </div>
     
+    <div class="timer-view" id="timerView" style="display: block;">
+      <div class="cooking-container">
+        <img src="./assets/frying-pan.png" alt="Frying Pan" class="frying-pan" />
+        <img src="./assets/rare.png" alt="Rare Steak" class="cooking-steak" />
+      </div>
+    </div>
+    
     
     <script>
       // commands for when button is pushed.
@@ -66,6 +73,11 @@
       document.getElementById('startBtn').addEventListener('click', () => {
         document.getElementById('home-content').style.display = 'none';
         document.getElementById('steakRarity').style.display = 'block';
+      });
+
+      document.getElementById('rareSteakBtn').addEventListener('click', () => {
+        document.getElementById('steakRarity').style.display = 'none';
+        document.getElementById('timerView').style.display = 'block';
       });
     </script>
   </body>
