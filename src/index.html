@@ -83,89 +83,126 @@
       document.getElementById('rareSteakBtn').addEventListener('click', () => {
         document.getElementById('steakRarity').style.display = 'none';
         document.getElementById('timerView').style.display = 'block';
+        initializeTimer(2)
       });
 
+      document.getElementById('mediumRareSteakBtn').addEventListener('click', () => {
+        document.getElementById('steakRarity').style.display = 'none';
+        document.getElementById('timerView').style.display = 'block';
+        initializeTimer(4)
+      });
+
+      document.getElementById('mediumSteakBtn').addEventListener('click', () => {
+        document.getElementById('steakRarity').style.display = 'none';
+        document.getElementById('timerView').style.display = 'block';
+        initializeTimer(6)
+      });
+
+      document.getElementById('wellDoneSteakBtn').addEventListener('click', () => {
+        document.getElementById('steakRarity').style.display = 'none';
+        document.getElementById('timerView').style.display = 'block';
+        initializeTimer(8)
+      });
       // Timer functionality
-      function initializeTimer(time) {
-        let timerInterval = null;
-        let totalSeconds = time; // 2.5 minutes
-        let remainingSeconds = 150;
-        let hasFlipped = false;
-        let flipTime = totalSeconds/2; // 1.25 minutes (midway point - when 75 seconds remain)
+      let timerInterval = null;
+      let timerState = {
+        totalSeconds: 0,
+        remainingSeconds: 0,
+        hasFlipped: false,
+        flipTime: 0
+      };
 
-        const startCookingBtn = document.getElementById('startCookingBtn');
-        const timerDisplay = document.getElementById('timerDisplay');
+      const startCookingBtn = document.getElementById('startCookingBtn');
+      const timerDisplay = document.getElementById('timerDisplay');
 
-        function formatTime(seconds) {
-          const mins = Math.floor(seconds / 60);
-          const secs = seconds % 60;
-          return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function updateTimer() {
-          // Decrement first
-          remainingSeconds--;
-          timerDisplay.textContent = formatTime(remainingSeconds);
-          
-          // Check if timer is done
-          if (remainingSeconds <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            startCookingBtn.textContent = 'Done';
-            timerDisplay.textContent = '0:00';
-            // Hide timer, show button
-            timerDisplay.style.display = 'none';
-            startCookingBtn.style.display = 'block';
-            return;
-          }
-          
-          // Check if it's time to show flip button (at 1.25 minutes = 75 seconds remaining)
-          if (remainingSeconds === flipTime && !hasFlipped) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            startCookingBtn.textContent = 'Flip';
-            // Hide timer, show button
-            timerDisplay.style.display = 'none';
-            startCookingBtn.style.display = 'block';
-            return;
-          }
-        }
-
-        startCookingBtn.addEventListener('click', () => {
-          if (startCookingBtn.textContent === 'Start') {
-            // Start the timer
-            timerDisplay.style.display = 'block';
-            startCookingBtn.style.display = 'none'; // Hide button when timer starts
-            remainingSeconds = totalSeconds;
-            hasFlipped = false;
-            timerDisplay.textContent = formatTime(remainingSeconds);
-            // Start the timer immediately
-            timerInterval = setInterval(updateTimer, 1000);
-          } else if (startCookingBtn.textContent === 'Flip') {
-            // User clicked flip, continue timer
-            hasFlipped = true;
-            // Hide button, show timer
-            startCookingBtn.style.display = 'none';
-            timerDisplay.style.display = 'block';
-            timerInterval = setInterval(updateTimer, 1000);
-          } else if (startCookingBtn.textContent === 'Done') {
-            // Return to home view
-            clearInterval(timerInterval);
-            timerInterval = null;
-            document.getElementById('timerView').style.display = 'none';
-            document.getElementById('home-content').style.display = 'block';
-            
-            // Reset timer state
-            remainingSeconds = totalSeconds;
-            hasFlipped = false;
-            startCookingBtn.textContent = 'Start';
-            timerDisplay.style.display = 'none';
-            startCookingBtn.style.display = 'block'; // Show button again for next time
-          }
-        });
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
       }
 
-      initializeTimer(4);
+      function updateTimer() {
+        // Decrement first
+        timerState.remainingSeconds--;
+        timerDisplay.textContent = formatTime(timerState.remainingSeconds);
+        
+        // Check if timer is done
+        if (timerState.remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          startCookingBtn.textContent = 'Done';
+          timerDisplay.textContent = '0:00';
+          // Hide timer, show button
+          timerDisplay.style.display = 'none';
+          startCookingBtn.style.display = 'block';
+          return;
+        }
+        
+        // Check if it's time to show flip button (at 1.25 minutes = 75 seconds remaining)
+        if (timerState.remainingSeconds === timerState.flipTime && !timerState.hasFlipped) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          startCookingBtn.textContent = 'Flip';
+          // Hide timer, show button
+          timerDisplay.style.display = 'none';
+          startCookingBtn.style.display = 'block';
+          return;
+        }
+      }
+
+      function initializeTimer(time) {
+        // Clear any existing interval first
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+
+        timerState.totalSeconds = time;
+        timerState.remainingSeconds = 150;
+        timerState.hasFlipped = false;
+        timerState.flipTime = time / 2;
+      }
+
+      // Single event listener for the button
+      startCookingBtn.addEventListener('click', () => {
+        // Clear any existing interval before starting a new one
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+
+        if (startCookingBtn.textContent === 'Start') {
+          // Start the timer
+          timerDisplay.style.display = 'block';
+          startCookingBtn.style.display = 'none'; // Hide button when timer starts
+          timerState.remainingSeconds = timerState.totalSeconds;
+          timerState.hasFlipped = false;
+          timerDisplay.textContent = formatTime(timerState.remainingSeconds);
+          // Start the timer immediately
+          timerInterval = setInterval(updateTimer, 1000);
+        } else if (startCookingBtn.textContent === 'Flip') {
+          // User clicked flip, continue timer
+          timerState.hasFlipped = true;
+          // Hide button, show timer
+          startCookingBtn.style.display = 'none';
+          timerDisplay.style.display = 'block';
+          timerInterval = setInterval(updateTimer, 1000);
+        } else if (startCookingBtn.textContent === 'Done') {
+          // Return to home view
+          clearInterval(timerInterval);
+          timerInterval = null;
+          document.getElementById('timerView').style.display = 'none';
+          document.getElementById('home-content').style.display = 'block';
+          
+          // Reset timer state
+          timerState.remainingSeconds = timerState.totalSeconds;
+          timerState.hasFlipped = false;
+          startCookingBtn.textContent = 'Start';
+          timerDisplay.style.display = 'none';
+          startCookingBtn.style.display = 'block'; // Show button again for next time
+        }
+      });
+
     </script>
   </body>
 </html>
