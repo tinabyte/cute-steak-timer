@@ -158,8 +158,37 @@ body {
   color: orange;
 }
 
+.steak-rarity-view {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+  padding: 20px;
+}
 
+.steak-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
 
+.cooking-text {
+  font-family: 'Montserrat Bold', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #615147;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -1px;
+}
 
 .steak-btn img{
   image-rendering: pixelated;
@@ -168,8 +197,8 @@ body {
   display: block;
   width: 100px;
   height: 100px;
-  object-fit: contain;
-
+  object-fit:fill;
+  
 }
 
  .steak-btn {
@@ -178,22 +207,36 @@ body {
   padding: 0;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
-  width: auto;
-  height: auto;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.steak-btn img {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.steak-btn:hover {
+.steak-label {
+  font-family: 'VCR OSD Mono', monospace;
+  font-size: 100%;
+  color: #615147;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-top: -15px;
+  position: relative;
+  z-index: 1;
+}
+
+.steak-btn:hover img {
   transform: scale(1.15);
   opacity: 0.8;
 }
 
-.steak-btn:active {
+.steak-btn:active img {
   transform: scale(1.05);
   opacity: 0.6;
 }
+
 

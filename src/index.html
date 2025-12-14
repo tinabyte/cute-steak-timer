@@ -16,30 +16,36 @@
     </div>
 
 
-    <div class="home-content" id="home-content" style="display: block;">
+    <div class="home-content" id="home-content" style="display: none;">
       <h1 class="home-text">Let's Cook Some Meat!</h1>
       <p class="sub-text">( for a 1" steak )</p>
       <button class="start-button" id="startBtn">Start</button>
     </div>
     
     
-    <div class="steak-rarity-view" id="steakRarity" style="display: none;">
-      <h1 class="cooking-text">hello</h1>
-      <button class="steak-btn" id="rareSteakBtn">
-        <img src="./assets/rare.png" alt="Minimize" />
-      </button>
-      
-      <button class="steak-btn" id="mediumRareSteakBtn">
-        <img src="./assets/medium-rare.png" alt="Minimize" />
-      </button>
+    <div class="steak-rarity-view" id="steakRarity" style="display: block;">
+      <h1 class="sub-text">How do you want your steak cooked today?</h1>
+      <div class="steak-grid-container">
+        <button class="steak-btn" id="rareSteakBtn">
+          <img src="./assets/rare.png" alt="Rare" />
+          <span class="steak-label">Rare</span>
+        </button>
+        
+        <button class="steak-btn" id="mediumRareSteakBtn">
+          <img src="./assets/medium-rare.png" alt="Medium Rare" />
+          <span class="steak-label">Medium Rare</span>
+        </button>
 
-      <button class="steak-btn" id="mediumSteakBtn">
-        <img src="./assets/medium.png" alt="Minimize" />
-      </button>
+        <button class="steak-btn" id="mediumSteakBtn">
+          <img src="./assets/medium.png" alt="Medium" />
+          <span class="steak-label">Medium</span>
+        </button>
 
-      <button class="steak-btn" id="rareSteakBtn">
-        <img src="./assets/well-done.png" alt="Minimize" />
-      </button>
+        <button class="steak-btn" id="wellDoneSteakBtn">
+          <img src="./assets/well-done.png" alt="Well Done" />
+          <span class="steak-label">Well Done</span>
+        </button>
+      </div>
     </div>
     
     
