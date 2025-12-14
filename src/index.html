@@ -113,6 +113,9 @@
             timerInterval = null;
             startCookingBtn.textContent = 'Done';
             timerDisplay.textContent = '0:00';
+            // Hide timer, show button
+            timerDisplay.style.display = 'none';
+            startCookingBtn.style.display = 'block';
             return;
           }
           
@@ -121,6 +124,9 @@
             clearInterval(timerInterval);
             timerInterval = null;
             startCookingBtn.textContent = 'Flip';
+            // Hide timer, show button
+            timerDisplay.style.display = 'none';
+            startCookingBtn.style.display = 'block';
             return;
           }
         }
@@ -129,6 +135,7 @@
           if (startCookingBtn.textContent === 'Start') {
             // Start the timer
             timerDisplay.style.display = 'block';
+            startCookingBtn.style.display = 'none'; // Hide button when timer starts
             remainingSeconds = totalSeconds;
             hasFlipped = false;
             timerDisplay.textContent = formatTime(remainingSeconds);
@@ -137,6 +144,9 @@
           } else if (startCookingBtn.textContent === 'Flip') {
             // User clicked flip, continue timer
             hasFlipped = true;
+            // Hide button, show timer
+            startCookingBtn.style.display = 'none';
+            timerDisplay.style.display = 'block';
             timerInterval = setInterval(updateTimer, 1000);
           } else if (startCookingBtn.textContent === 'Done') {
             // Return to home view
@@ -150,6 +160,7 @@
             hasFlipped = false;
             startCookingBtn.textContent = 'Start';
             timerDisplay.style.display = 'none';
+            startCookingBtn.style.display = 'block'; // Show button again for next time
           }
         });
       }
