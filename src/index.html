@@ -16,7 +16,7 @@
     </div>
 
 
-    <div class="home-content" id="home-content" style="display: none;">
+    <div class="home-content" id="home-content" style="display: block;">
       <h1 class="home-text">Let's Cook Some Meat!</h1>
       <p class="sub-text">( for a 1" steak )</p>
       <button class="start-button" id="startBtn">Start</button>
@@ -48,13 +48,13 @@
       </div>
     </div>
     
-    <div class="timer-view" id="timerView" style="display: block;">
+    <div class="timer-view" id="timerView" style="display: none;">
       <h1 class="sub-text">Start Cooking!</h1>
       
       <div class="cooking-container">
         <img src="./assets/frying-pan.png" alt="Frying Pan" class="frying-pan" />
         <img src="./assets/rare.png" alt="Rare Steak" class="cooking-steak" />
-        <!-- <button class="cooking-start-button" id="cookingStartBtn">Start</button> -->
+        <div class="timer-display" id="timerDisplay" style="display: none;">2:30</div>
         <button class="start-button" id="startCookingBtn">Start</button>
       </div>
   
@@ -84,6 +84,77 @@
         document.getElementById('steakRarity').style.display = 'none';
         document.getElementById('timerView').style.display = 'block';
       });
+
+      // Timer functionality
+      function initializeTimer(time) {
+        let timerInterval = null;
+        let totalSeconds = time; // 2.5 minutes
+        let remainingSeconds = 150;
+        let hasFlipped = false;
+        let flipTime = totalSeconds/2; // 1.25 minutes (midway point - when 75 seconds remain)
+
+        const startCookingBtn = document.getElementById('startCookingBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+
+        function formatTime(seconds) {
+          const mins = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+          // Decrement first
+          remainingSeconds--;
+          timerDisplay.textContent = formatTime(remainingSeconds);
+          
+          // Check if timer is done
+          if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            startCookingBtn.textContent = 'Done';
+            timerDisplay.textContent = '0:00';
+            return;
+          }
+          
+          // Check if it's time to show flip button (at 1.25 minutes = 75 seconds remaining)
+          if (remainingSeconds === flipTime && !hasFlipped) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            startCookingBtn.textContent = 'Flip';
+            return;
+          }
+        }
+
+        startCookingBtn.addEventListener('click', () => {
+          if (startCookingBtn.textContent === 'Start') {
+            // Start the timer
+            timerDisplay.style.display = 'block';
+            remainingSeconds = totalSeconds;
+            hasFlipped = false;
+            timerDisplay.textContent = formatTime(remainingSeconds);
+            // Start the timer immediately
+            timerInterval = setInterval(updateTimer, 1000);
+          } else if (startCookingBtn.textContent === 'Flip') {
+            // User clicked flip, continue timer
+            hasFlipped = true;
+            timerInterval = setInterval(updateTimer, 1000);
+          } else if (startCookingBtn.textContent === 'Done') {
+            // Return to home view
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timerView').style.display = 'none';
+            document.getElementById('home-content').style.display = 'block';
+            
+            // Reset timer state
+            remainingSeconds = totalSeconds;
+            hasFlipped = false;
+            startCookingBtn.textContent = 'Start';
+            timerDisplay.style.display = 'none';
+          }
+        });
+      }
+
+      initializeTimer(4);
     </script>
   </body>
 </html>
