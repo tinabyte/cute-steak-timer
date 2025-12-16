@@ -54,7 +54,7 @@
       <div class="cooking-container">
         <img src="./assets/frying-pan.png" alt="Frying Pan" class="frying-pan" />
         <img src="./assets/rare.png" alt="Rare Steak" class="cooking-steak" />
-        <div class="timer-display" id="timerDisplay" style="display: none;">2:30</div>
+        <div class="timer-display" id="timerDisplay" style="display: none;"></div>
         <button class="start-button" id="startCookingBtn">Start</button>
       </div>
   
@@ -83,7 +83,7 @@
       document.getElementById('rareSteakBtn').addEventListener('click', () => {
         document.getElementById('steakRarity').style.display = 'none';
         document.getElementById('timerView').style.display = 'block';
-        initializeTimer(2)
+        initializeTimer(120)
       });
 
       document.getElementById('mediumRareSteakBtn').addEventListener('click', () => {
@@ -101,7 +101,7 @@
       document.getElementById('wellDoneSteakBtn').addEventListener('click', () => {
         document.getElementById('steakRarity').style.display = 'none';
         document.getElementById('timerView').style.display = 'block';
-        initializeTimer(8)
+        initializeTimer(200)
       });
       // Timer functionality
       let timerInterval = null;
@@ -114,6 +114,7 @@
 
       const startCookingBtn = document.getElementById('startCookingBtn');
       const timerDisplay = document.getElementById('timerDisplay');
+      const fryingPan = document.querySelector('.frying-pan');
 
       function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
@@ -130,6 +131,7 @@
         if (timerState.remainingSeconds <= 0) {
           clearInterval(timerInterval);
           timerInterval = null;
+          fryingPan.classList.remove('cooking'); // Stop pan rotation
           startCookingBtn.textContent = 'Done';
           timerDisplay.textContent = '0:00';
           // Hide timer, show button
@@ -142,6 +144,7 @@
         if (timerState.remainingSeconds === timerState.flipTime && !timerState.hasFlipped) {
           clearInterval(timerInterval);
           timerInterval = null;
+          fryingPan.classList.remove('cooking'); // Stop pan rotation
           startCookingBtn.textContent = 'Flip';
           // Hide timer, show button
           timerDisplay.style.display = 'none';
@@ -156,6 +159,9 @@
           clearInterval(timerInterval);
           timerInterval = null;
         }
+
+        // Stop pan rotation when initializing new timer
+        fryingPan.classList.remove('cooking');
 
         timerState.totalSeconds = time;
         timerState.remainingSeconds = 150;
@@ -178,6 +184,7 @@
           timerState.remainingSeconds = timerState.totalSeconds;
           timerState.hasFlipped = false;
           timerDisplay.textContent = formatTime(timerState.remainingSeconds);
+          fryingPan.classList.add('cooking'); // Start pan rotation
           // Start the timer immediately
           timerInterval = setInterval(updateTimer, 1000);
         } else if (startCookingBtn.textContent === 'Flip') {
@@ -186,11 +193,13 @@
           // Hide button, show timer
           startCookingBtn.style.display = 'none';
           timerDisplay.style.display = 'block';
+          fryingPan.classList.add('cooking'); // Resume pan rotation
           timerInterval = setInterval(updateTimer, 1000);
         } else if (startCookingBtn.textContent === 'Done') {
           // Return to home view
           clearInterval(timerInterval);
           timerInterval = null;
+          fryingPan.classList.remove('cooking'); // Stop pan rotation
           document.getElementById('timerView').style.display = 'none';
           document.getElementById('home-content').style.display = 'block';
           
